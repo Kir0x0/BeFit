@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BeFit.Models.ExerciseType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+            <a class="btn btn-primary" asp-action="Create">Dodaj nowy typ ćwiczenia</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(m => item.Name)</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    @: |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
